@@ -1,0 +1,2 @@
+# springcloudall
+主要实现springcloud相关组件功能
