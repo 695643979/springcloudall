@@ -1,0 +1,33 @@
+#服务端口
+server:
+  port: 9000
+
+#服务的名称
+spring:
+  application:
+    name: api-gateway
+
+
+#指定注册中心地址
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+# 只配置上面的内容访问下面的路由可以访问到其他服务经过网关的接口：
+# http://localhost:9000/order-service/api/v1/order/save?userId=1&productId=1
+
+#自定义路由映射
+zuul:
+  routes:
+    order-service: /apigateway/order/**
+    product-service: /apigateway/product/**
+  #统一入口为上面的配置，其他入口忽略
+  ignored-patterns: /*-service/**
+  #忽略整个服务，对外提供接口
+#  ignored-services: product-service
+#  处理http请求头为空的问题,把 private Set<String> sensitiveHeaders = new LinkedHashSet(Arrays.asList("Cookie", "Set-Cookie", "Authorization"));
+#  中默认的配置信息置空，把限制去掉，就可以在请求头或者请求参数中设置cookie的值。
+  sensitive-headers:
+
+# 请求路由，带token： http://localhost:9000/apigateway/order/api/v1/order/save?userId=1&productId=1&token=sdfslkdklsd
