@@ -1,0 +1,101 @@
+#server:
+#  port: 8781
+
+
+#服务的名称
+spring:
+  application:
+    name: order-service
+  #指定从哪个配置中心读取
+  cloud:
+    config:
+      discovery:
+        service-id: config-server
+        enabled: true
+      #环境
+      profile: test
+      #建议用lable去区分环境，默认是lable是master分支，如：文件名称：product-service-test.yml 分支：master
+      label: test
+#  redis:  # Resid相关配置
+#    database: 1
+#    host: ENC(xDLbHWkNwygHk34FPrCMv0GbuMpJmMoi)
+#    port: 3037
+#    password: ENC(PRQJHr7UcOT8QMUGKIkkhqio0MPDDWHY)
+#    timeout: 10000
+#    pool:
+#      #max-active: 8  # 连接池最大连接数（使用负值表示没有限制）
+##      max-wait: 10000  # 连接池最大阻塞等待时间（使用负值表示没有限制）
+##      min-idle: 1  # 连接池中的最小空闲连接
+##      max-idle: 300  # 连接池中的最大空闲连接
+#      testOnBorrow: true #是否在从池中取出连接前进行检验,如果检验失败,则从池中去除连接并尝试取出另一个
+#      testWhileIdle: true #在空闲时检查有效性, 默认false
+## zipkin服务所在地址
+#  zipkin:
+#    base-url: http://127.0.0.1:9411/
+#    base-url: ENC(z8FeQD2J4xKoUVjzMU0BFHo/KuuJCxdBzIaQic4y4CzowEvkOQrtJA==)
+##  #配置采样百分比,开发环境可以设置为1，表示全部，生产就用默认0.1
+#  sleuth:
+#    sampler:
+#      probability: 1
+
+#指定注册中心地址
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+
+##  策略选择：
+##  1、如果每个机器配置一样，则建议不修改策略 (推荐)
+##  2、如果部分机器配置强，则可以改为 WeightedResponseTimeRule
+##自定义负载均衡策略 - 随机测试，默认为客户端轮询策略
+#product-service:
+#  ribbon:
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+
+## 默认optons readtimeout是60，但是由于hystrix默认是1秒超时
+## 修改调用超时时间
+#feign:
+#  hystrix:
+#    enabled: true  # 开启feign支持hystrix  (注意，一定要开启，旧版本默认支持，新版本默认关闭)
+#  client:
+#    config:
+#      default:
+#        connectTimeout: 2000
+#        readTimeout: 2000
+
+
+#把hystrix超时时间禁用
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        timeout:
+#          enabled: false
+
+#execution.isolation.thread.timeoutInMilliseconds=4000
+
+
+##设置 hystrix 超时时间
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 4000
+
+
+## 要访问order-service中任何一个接口后再访问： http://localhost:8781/actuator/hystrix.stream ，
+##暴露全部的监控信息
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+
+# jasypt对配置文件加密解密
+jasypt:
+  encryptor:
+    password: JH8AS90jasH
