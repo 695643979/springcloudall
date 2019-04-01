@@ -1,0 +1,30 @@
+# git 配置
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/Addiping/config-server
+          username: ENC(tVFxMbtSOtB4ZrMR73xOFLlWRjzUNg6mSiyhx5WY8AM=)
+          password: ENC(38f14i5Tr9xmjK9uS10+68T0jabeopCA)
+          timeout: 5
+          default-label: master
+
+
+# 端口
+server:
+  port: 9100
+
+
+#指定注册中心地址
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+# jasypt对配置文件加密解密
+jasypt:
+    encryptor:
+      password: JH8AS90jasH
