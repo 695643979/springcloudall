@@ -1,0 +1,50 @@
+#server:
+#  port: 8771
+
+# 指定注册中心地址
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+
+# 服务的名称
+spring:
+  application:
+    name: product-service
+#  # Spring Cloud Bus + RabbitMq 自动刷新
+#  rabbitmq:
+#    host: ENC(eZjiiZHP+aqeMzADAPXNGis9OT+KesYi)
+#    port: 5672
+#    username: ENC(vSI7z3TnM9Tn/oE0UD/wyA==)
+#    password: ENC(vSI7z3TnM9Tn/oE0UD/wyA==)
+  #指定从哪个配置中心读取
+  cloud:
+    config:
+      discovery:
+        service-id: config-server
+        enabled: true
+      #环境
+      profile: test
+      #建议用lable去区分环境，默认是lable是master分支，如：文件名称：product-service-test.yml 分支：master
+      label: test
+
+
+
+#  instance:
+#    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+#    ip-address: true        # eureka 显示机器名
+# #    preferIpAddress: true  # eureka 显示ip地址
+
+##暴露全部的监控信息
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+
+# jasypt对配置文件加密解密
+jasypt:
+  encryptor:
+    password: JH8AS90jasH
+
